@@ -1,4 +1,5 @@
-import { body } from 'express-validator';
+
+import { body, query } from 'express-validator';
 import { checkValidationResults } from './handleValidationErrors.js';
 
 export const validateTask = [
@@ -12,6 +13,15 @@ export const validateTask = [
     .withMessage('Title must be at least 3 and at most 100 characters'),
 
   body('completed')
+    .optional()
+    .isBoolean()
+    .withMessage('completed must be true or false'),
+
+  checkValidationResults,
+];
+
+export const validateCompletedQuery = [
+  query('completed')
     .optional()
     .isBoolean()
     .withMessage('completed must be true or false'),
